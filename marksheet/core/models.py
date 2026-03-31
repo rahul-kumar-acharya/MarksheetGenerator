@@ -161,9 +161,10 @@ class Mark(models.Model):
         if self.practical_marks > self.subject.practical_max:
             raise ValidationError("Practical marks exceed maximum limit")
 
+    @property
     def total_marks(self):
         return self.theory_marks + self.practical_marks
 
     def __str__(self):
-        return f"{self.student} - {self.subject.subject} - {self.exam} : {self.total_marks()}"
+        return f"{self.student} - {self.subject.subject} - {self.exam} : {self.total_marks}"
     

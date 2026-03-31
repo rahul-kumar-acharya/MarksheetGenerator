@@ -1,5 +1,28 @@
 {% extends "base.html" %}
 
+{% block title %}
+    {% if school_id %}
+        Check Results — {{ schools.0.school_name }} | EduMarks
+    {% else %}
+        Search Student Results — EduMarks Portal
+    {% endif %}
+{% endblock %}
+
+{% block meta_description %}
+    Access official academic transcripts and marksheet verification. 
+    {% if school_id %}
+        Online result portal for students of {{ schools.0.school_name }}.
+    {% else %}
+        Enter your roll number and date of birth to view your performance.
+    {% endif %}
+{% endblock %}
+
+{% block meta_keywords %}
+    check school result, online marksheet, roll number search, student performance portal, 
+    {% if school_id %}{{ schools.0.school_name }} results,{% endif %} 
+    academic transcript verification
+{% endblock %}
+
 {% block content %}
 <div class="min-h-screen bg-[#fafafa] pt-32 pb-20 px-4 flex items-center justify-center">
 

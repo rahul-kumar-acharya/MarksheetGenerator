@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduMarks - Academic Management</title>
+    
+    <title>{% block title %}EduMarks — Academic Record Management System{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}EduMarks is a modern platform for schools to manage students, track academic performance, and provide instant result verification for learners.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}school management, student results, online marksheet, education portal, academic records{% endblock %}">
+    <meta name="author" content="EduMarks Team">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:image" content="https://placehold.co/1200x630/0f172a/ffffff?text=EDUMARKS%0AAcademic+Management+System&font=roboto">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/0f172a/ffffff?text=EDUMARKS%0AAcademic+Management+System&font=roboto">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.35em' fill='white' style='font-family:sans-serif;font-weight:800;font-size:14px'%3EEM%3C/text%3E%3C/svg%3E">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Smooth fade for alerts */
+        #error-box { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
+    {% block head_extra %}{% endblock %}
 </head>
 <body class="bg-slate-50">
 
@@ -31,38 +50,22 @@
                     {% if not user.is_authenticated %}
                     <a href="{% url 'state' %}?type=student" class="px-6 py-2 text-sm font-black text-slate-600 hover:text-indigo-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">Find Result</a>
                     {% endif %}
-                    <a href="{% url "aboutus" %}" class="px-6 py-2 text-sm font-black text-slate-600 hover:text-indigo-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">About Us</a>
+                    <a href="{% url 'aboutus' %}" class="px-6 py-2 text-sm font-black text-slate-600 hover:text-indigo-600 rounded-xl hover:bg-white hover:shadow-sm transition-all duration-300">About Us</a>
                 </div>
 
                 <div class="flex items-center gap-3">
                     {% if user.is_authenticated %}
                         <div class="flex items-center gap-4">
                             <div class="hidden lg:flex flex-col items-end leading-tight mr-1">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Admin Access</span>
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Portal Access</span>
                                 <span class="text-sm font-bold text-slate-900">{{ user.username }}</span>
                             </div>
-                            {% if user.is_superuser %}
-                            <a href="{% url 'admindashboard' %}" class="hidden md:flex relative flex items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
-                                <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs">
-                                    {{ user.username|slice:":1"|upper }}
-                                </div>
-                                <span class="text-xs font-black uppercase tracking-wide">Admin Dashboard</span>
-                            </a>
-                            {% elif user.school %}
-                            <a href="{% url 'principaldashboard' %}" class="hidden md:flex relative flex items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
-                                <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs">
-                                    {{ user.username|slice:":1"|upper }}
+                            <a href="{% if user.is_superuser %}{% url 'admindashboard' %}{% elif user.school %}{% url 'principaldashboard' %}{% else %}{% url 'teacherdashboard' %}{% endif %}" class="hidden md:flex relative flex items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
+                                <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs uppercase">
+                                    {{ user.username|slice:":1" }}
                                 </div>
                                 <span class="text-xs font-black uppercase tracking-wide">Dashboard</span>
                             </a>
-                            {% else %}
-                            <a href="{% url 'teacherdashboard' %}" class="hidden md:flex relative flex items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
-                                <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs">
-                                    {{ user.username|slice:":1"|upper }}
-                                </div>
-                                <span class="text-xs font-black uppercase tracking-wide">Dashboard</span>
-                            </a>
-                            {% endif %}
                         </div>
                     {% else %}
                         <a href="{% url 'state' %}?type=institute" class="hidden sm:block text-sm font-black text-slate-500 hover:text-indigo-600 transition-colors mr-2">Login</a>
@@ -85,13 +88,7 @@
                 <a href="{% url 'aboutus' %}" class="flex items-center gap-4 p-5 rounded-[1.5rem] bg-slate-50 text-slate-900 font-black">About Us</a>
                 <div class="h-px bg-slate-100 my-2"></div>
                 {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
-                    <a href="{% url 'admindashboard' %}" class="flex items-center justify-center p-5 rounded-[1.5rem] bg-indigo-600 text-white font-black">Admin Dashboard</a>
-                    {% elif user.school %}
-                    <a href="{% url 'principaldashboard' %}" class="flex items-center justify-center p-5 rounded-[1.5rem] bg-indigo-600 text-white font-black">Dashboard</a>
-                    {% else %}
-                    <a href="{% url 'teacherdashboard' %}" class="flex items-center justify-center p-5 rounded-[1.5rem] bg-indigo-600 text-white font-black">Dashboard</a>
-                    {% endif %}
+                    <a href="{% if user.is_superuser %}{% url 'admindashboard' %}{% elif user.school %}{% url 'principaldashboard' %}{% else %}{% url 'teacherdashboard' %}{% endif %}" class="flex items-center justify-center p-5 rounded-[1.5rem] bg-indigo-600 text-white font-black">Dashboard</a>
                 {% else %}
                     <div class="grid grid-cols-2 gap-3">
                         <a href="{% url 'state' %}?type=institute" class="flex items-center justify-center p-5 rounded-[1.5rem] bg-slate-100 text-slate-900 font-black">Login</a>
@@ -102,24 +99,28 @@
         </div>
     </header>
 
-    <!-- GLOBAL ERROR ALERT -->
-    {% if error %}
-    <div id="error-box" class="fixed top-24 right-6 z-[999] max-w-sm w-full transition-all duration-500">
+    {% if error or messages %}
+    <div id="error-box" class="fixed top-24 right-6 z-[999] max-w-sm w-full">
+        {% if error %}
         <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 flex items-start gap-3 shadow-xl">
-            
             <svg class="w-5 h-5 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 
-                    1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 
-                    0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4c-.77-1.33-2.69-1.33-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z"/>
             </svg>
-
             <div>
-                <p class="text-sm font-bold text-red-600">Error</p>
+                <p class="text-sm font-bold text-red-600">Action Required</p>
                 <p class="text-sm text-red-500 font-medium">{{ error }}</p>
             </div>
-
         </div>
+        {% endif %}
+        
+        {% for message in messages %}
+        <div class="rounded-xl border {% if message.tags == 'error' %}border-red-200 bg-red-50{% else %}border-emerald-200 bg-emerald-50{% endif %} px-4 py-3 flex items-start gap-3 shadow-xl mb-2">
+            <div class="{% if message.tags == 'error' %}text-red-600{% else %}text-emerald-600{% endif %}">
+                <p class="text-sm font-bold uppercase tracking-widest">{{ message.tags }}</p>
+                <p class="text-sm font-medium">{{ message }}</p>
+            </div>
+        </div>
+        {% endfor %}
     </div>
     {% endif %}
 
@@ -135,33 +136,33 @@
                         <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">EM</div>
                         <span class="text-xl font-bold text-slate-900">EduMarks</span>
                     </a>
-                    <p class="text-slate-500 text-sm leading-relaxed">Modern standard for digital academic record management.</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Defining the standard for secure and modern digital academic records.</p>
                 </div>
                 <div>
-                    <h3 class="text-slate-900 font-bold text-sm uppercase mb-4">Platform</h3>
+                    <h3 class="text-slate-900 font-black text-[10px] uppercase tracking-widest mb-4">Platform</h3>
                     <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-indigo-600">Home</a></li>
-                        <li><a href="#" class="hover:text-indigo-600">Search Result</a></li>
+                        <li><a href="{% url 'home' %}" class="hover:text-indigo-600 transition-colors">Home</a></li>
+                        <li><a href="{% url 'state' %}?type=student" class="hover:text-indigo-600 transition-colors">Search Results</a></li>
+                        <li><a href="{% url 'aboutus' %}" class="hover:text-indigo-600 transition-colors">About</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-slate-900 font-bold text-sm uppercase mb-4">Support</h3>
+                    <h3 class="text-slate-900 font-black text-[10px] uppercase tracking-widest mb-4">Support</h3>
                     <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-indigo-600">Help Center</a></li>
-                        <li><a href="#" class="hover:text-indigo-600">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-indigo-600 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-slate-900 font-bold text-sm uppercase mb-4">System Status</h3>
+                    <h3 class="text-slate-900 font-black text-[10px] uppercase tracking-widest mb-4">System Status</h3>
                     <div class="flex items-center gap-2">
                         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                        <span class="text-sm text-slate-600">All systems operational</span>
+                        <span class="text-sm text-slate-600 font-medium">All systems operational</span>
                     </div>
                 </div>
             </div>
-            <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
-                <p>&copy; 2026 EduMarks. Built for excellence.</p>
-                <span class="text-xs font-semibold uppercase tracking-widest">Version 2.0.4</span>
+            <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-center items-center gap-4 text-slate-400 text-xs font-medium">
+                <p>&copy; 2026 EduMarks. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -188,21 +189,17 @@
             mobileDrawer.classList.toggle('hidden');
             menuIcon.setAttribute('d', isHidden ? 'M6 18L18 6M6 6l12 12' : 'M4 8h16M4 16h16');
         });
+
+        // Auto hide alerts
+        setTimeout(() => {
+            const box = document.getElementById("error-box");
+            if (box) {
+                box.style.opacity = "0";
+                box.style.transform = "translateX(20px)";
+                setTimeout(() => box.remove(), 500);
+            }
+        }, 4000);
     </script>
     
 </body>
 </html>
-
-<script>
-    // Auto hide error after 2 sec
-    setTimeout(() => {
-        const box = document.getElementById("error-box");
-        if (box) {
-            box.style.opacity = "0";
-            box.style.transform = "translateY(-10px)";
-            setTimeout(() => box.remove(), 500);
-        }
-    }, 2000);
-</script>
-
-

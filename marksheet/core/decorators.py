@@ -39,13 +39,18 @@ def teacher_required(view_func):
             return redirect('login')
 
         try:
-            teacher = Teacher.objects.get(user=request.user)
+            teacher = Teacher.objects.filter(user=request.user).first()
+            
+            if not teacher:
+                messages.error(request, "Teacher access required.")
+                return redirect("home")
 
             request.teacher = teacher
             return view_func(request, *args, **kwargs)
 
-        except Teacher.DoesNotExist:
-            messages.error(request, "Teacher access required.")
+        except Exception as e:
+            print("Teacher access error:", e)
+            messages.error(request, "An error occurred. Please try again.")
             return redirect("home")
 
     return _wrapped_view

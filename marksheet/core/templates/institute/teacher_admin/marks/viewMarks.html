@@ -47,6 +47,8 @@
             </div>
         </div>
 
+        {% if marks %}
+
         {% regroup marks by student.class_room as class_list %}
 
         <div class="space-y-24">
@@ -66,8 +68,12 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        {% if class_group.list %}
+
                         {% regroup class_group.list by student as student_marks_list %}
-                        
+
+                        {% if student_marks_list %}
+
                         {% for student_entry in student_marks_list %}
                         <div class="group bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden hover:shadow-2xl hover:border-emerald-500 transition-all duration-500 relative">
                             
@@ -104,6 +110,10 @@
                             </div>
                         </div>
                         {% endfor %}
+
+                        {% endif %}
+
+                        {% endif %}
                     </div>
                 </section>
             {% empty %}
@@ -112,6 +122,19 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% else %}
+
+        <div class="text-center py-32 bg-white rounded-[4rem] border-2 border-dashed border-slate-100">
+            <p class="text-slate-400 font-black uppercase tracking-widest text-xs">No marks entered yet. Start by adding marks for your students.</p>
+            <a href="{% url 'addmarks' %}" class="inline-flex items-center gap-3 mt-6 px-8 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-emerald-600 transition-all shadow-xl shadow-slate-200">
+                Add Marks
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            </a>
+        </div>    
+
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}
