@@ -151,7 +151,7 @@ def academicYear(request):
 @login_required
 @school_required
 def manageClass(request):
-    return render(request, "institute/principal_admin/class/manageclass.html")
+    return render(request, "institute/principal_admin/class/manageClass.html")
 
 
 # ---------------- ADD CLASS ----------------

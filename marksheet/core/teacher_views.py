@@ -253,7 +253,7 @@ def addStudents(request):
 
         return redirect("viewstudents")
 
-    return render(request, "institute/teacher_admin/students/addstudents.html", {
+    return render(request, "institute/teacher_admin/students/addStudents.html", {
         "classroom": classroom,
         "school": school
     })
@@ -364,7 +364,7 @@ def viewMarks(request):
     
     school = teacher.school
 
-    return render(request, "institute/teacher_admin/marks/viewmarks.html", {
+    return render(request, "institute/teacher_admin/marks/viewMarks.html", {
         "marks": marks,
         "selected_exam": exam,
         "teacher": teacher,
