@@ -171,21 +171,21 @@ def addClass(request):
             if classname < 1 or classname > 12:
                 raise ValueError
         except:
-            return render(request, "institute/principal_admin/class/addclass.html", {
+            return render(request, "institute/principal_admin/class/addClass.html", {
                 "academic_years": academic_years,
                 "error": "Class must be between 1 and 12"
             })
 
         section = section.upper()
         if section not in ["A", "B", "C"]:
-            return render(request, "institute/principal_admin/class/addclass.html", {
+            return render(request, "institute/principal_admin/class/addClass.html", {
                 "academic_years": academic_years,
                 "error": "Section must be A, B or C"
             })
 
         academic_year = AcademicYear.objects.filter(id=year_id, school=school).first()
         if not academic_year:
-            return render(request, "institute/principal_admin/class/addclass.html", {
+            return render(request, "institute/principal_admin/class/addClass.html", {
                 "academic_years": academic_years,
                 "error": "Invalid academic year"
             })
@@ -196,7 +196,7 @@ def addClass(request):
             name=classname,
             section=section
         ).exists():
-            return render(request, "institute/principal_admin/class/addclass.html", {
+            return render(request, "institute/principal_admin/class/addClass.html", {
                 "academic_years": academic_years,
                 "error": "Class already exists"
             })
@@ -210,7 +210,7 @@ def addClass(request):
 
         return redirect("viewclass")
 
-    return render(request, "institute/principal_admin/class/addclass.html", {
+    return render(request, "institute/principal_admin/class/addClass.html", {
         "academic_years": academic_years
     })
 
@@ -230,7 +230,7 @@ def viewClass(request):
         academic_year=selected_year
     ).order_by("name", "section")
 
-    return render(request, "institute/principal_admin/class/viewclass.html", {
+    return render(request, "institute/principal_admin/class/viewClass.html", {
         "allclass": classroom,
         "academic_years": academic_years,
         "selected_year": selected_year
