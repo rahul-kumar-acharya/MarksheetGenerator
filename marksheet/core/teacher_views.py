@@ -251,7 +251,8 @@ def viewStudents(request):
 
     return render(request, "institute/teacher_admin/students/viewStudents.html", {
         "students": students,
-        "classroom": teacher.classroom
+        "classroom": teacher.classroom,
+        "school": teacher.school
     })
     
     

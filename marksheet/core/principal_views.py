@@ -233,7 +233,8 @@ def viewClass(request):
     return render(request, "institute/principal_admin/class/viewClass.html", {
         "allclass": classroom,
         "academic_years": academic_years,
-        "selected_year": selected_year
+        "selected_year": selected_year,
+        "school": school
     })
 
 
@@ -343,6 +344,7 @@ def viewTeachers(request):
     return render(request, "institute/principal_admin/teacher/viewTeacher.html", {
         "teachers": teachers,
         "academic_years": academic_years,
-        "selected_year": selected_year
+        "selected_year": selected_year,
+        "school": school
     })
     
