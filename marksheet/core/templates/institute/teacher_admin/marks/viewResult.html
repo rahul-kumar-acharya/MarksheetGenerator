@@ -53,7 +53,7 @@
                 
                 <div class="flex flex-row justify-between items-center border-b-2 border-black pb-6">
                     <div class="flex items-center gap-6">
-                        {% if student.school and student.school.logo %}
+                        {% if student.school.logo %}
                             <img src="{{ student.school.logo.url }}" class="w-20 h-20 object-contain">
                         {% else %}
                             <div class="w-20 h-20 bg-slate-100 flex items-center justify-center font-bold">LOGO</div>
@@ -70,13 +70,7 @@
                     </div>
                     <div class="text-right border-l border-slate-300 pl-6">
                         <p class="text-[10px] font-bold uppercase text-slate-400">Academic Session</p>
-                        <p class="text-xl font-bold tracking-tighter">
-                            {% if student.class_room.academic_year %}
-                                {{ student.class_room.academic_year.year }}
-                            {% else %}
-                                N/A
-                            {% endif %}
-                        </p>
+                        <p class="text-xl font-bold tracking-tighter">{{ student.class_room.academic_year.year }}</p>
                     </div>
                 </div>
 
@@ -89,7 +83,7 @@
                 <div class="flex flex-row gap-8 py-6 border-b border-black">
                     <div class="flex-shrink-0">
                         <div class="w-28 h-32 border-2 border-black p-1 bg-white">
-                            {% if student.photo and student.photo.url %}
+                            {% if student.photo %}
                                 <img src="{{ student.photo.url }}" class="w-full h-full object-cover">
                             {% else %}
                                 <div class="w-full h-full bg-slate-50 flex items-center justify-center text-[10px] uppercase">No Photo</div>
@@ -112,11 +106,11 @@
                         </div>
                         <div class="border-b border-slate-100 pb-1">
                             <span class="block text-[11px] font-bold text-slate-400 uppercase">Date of Birth</span>
-                            <span class="text-xs font-bold">{{ student.dob|date:"d/m/Y" }}</span>
+                            <span class="text-xs font-bold">{{ student.dob }}</span>
                         </div>
                         <div class="col-span-2">
                             <span class="block text-[11px] font-bold text-slate-400 uppercase">School Location</span>
-                            <span class="text-xs font-bold">{{ student.school.state.name|default:"N/A" }}, {{ student.school.pincode }}</span>
+                            <span class="text-xs font-bold">{{ student.school.state.name }}, {{ student.school.pincode }}</span>
                         </div>
                     </div>
                 </div>
@@ -167,10 +161,10 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between items-end pt-20"> 
+                <div class="flex justify-between items-end pt-10"> 
                     <div class="text-center">
                         <div class="w-40 flex flex-col items-center">
-                            {% if teacher and teacher.teacher_sign %}
+                            {% if teacher.teacher_sign %}
                                 <img src="{{ teacher.teacher_sign.url }}" alt="Teacher Sign" class="h-16 w-auto object-contain mb-2">
                             {% else %}
                                 <div class="h-16"></div> {% endif %}
@@ -186,7 +180,7 @@
                 
                     <div class="text-center">
                         <div class="w-40 flex flex-col items-center">
-                            {% if school and school.principal_sign %}
+                            {% if school.principal_sign %}
                                 <img src="{{ school.principal_sign.url }}" alt="Principal Sign" class="h-16 w-auto object-contain mb-2">
                             {% else %}
                                 <div class="h-16"></div> 

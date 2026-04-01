@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between items-end pt-20"> 
+                <div class="flex justify-between items-end pt-10"> 
                     <div class="text-center">
                         <div class="w-40 flex flex-col items-center">
                             {% if teacher.teacher_sign %}
@@ -183,7 +183,8 @@
                             {% if school.principal_sign %}
                                 <img src="{{ school.principal_sign.url }}" alt="Principal Sign" class="h-16 w-auto object-contain mb-2">
                             {% else %}
-                                <div class="h-16"></div> {% endif %}
+                                <div class="h-16"></div>
+                            {% endif %}
                             <div class="w-full border-t-2 border-black pt-2">
                                 <p class="text-xs font-bold uppercase">Principal</p>
                             </div>

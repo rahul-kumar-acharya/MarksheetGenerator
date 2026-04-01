@@ -10,10 +10,7 @@ import re
 @login_required
 @teacher_required
 def teacherDashboard(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     return render(request, "institute/teacher_admin/dashboard.html", {
         "teacher": teacher,
         "classroom": teacher.classroom
@@ -30,10 +27,7 @@ def manageSubjects(request):
 @login_required
 @teacher_required
 def addSubjects(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     classroom = teacher.classroom
 
     if request.method == "POST":
@@ -85,10 +79,7 @@ def addSubjects(request):
 @login_required
 @teacher_required
 def viewSubjects(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     subjects = ClassSubject.objects.filter(classroom=teacher.classroom)
 
     return render(request, "institute/teacher_admin/subjects/viewSubjects.html", {
@@ -101,10 +92,7 @@ def viewSubjects(request):
 @login_required
 @teacher_required
 def editSubject(request, subject_id):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
 
     if not teacher:
         return redirect('dashboard')
@@ -168,10 +156,7 @@ def editSubject(request, subject_id):
 @login_required
 @teacher_required
 def deleteSubject(request, subject_id):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
 
     subject = ClassSubject.objects.filter(
         id=subject_id,
@@ -195,9 +180,7 @@ def manageStudents(request):
 @login_required
 @teacher_required
 def addStudents(request):
-    teacher = getattr(request, "teacher", None)
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     classroom = teacher.classroom
     school = teacher.school
 
@@ -208,7 +191,7 @@ def addStudents(request):
         father_name = request.POST.get("father_name")
         guardian_phone = request.POST.get("guardian_phone")
         address = request.POST.get("address")
-        photo = request.FILES.get("photo") or None
+        photo = request.FILES.get("photo")
 
         if not studentname:
             return render(request, "institute/teacher_admin/students/addstudents.html", {
@@ -218,9 +201,7 @@ def addStudents(request):
         try:
             roll = int(roll)
             if Student.objects.filter(class_room=classroom, roll_no=roll).exists():
-                return render (request, "institute/teacher_admin/students/addstudents.html", {
-                    "error": "Roll number already exists in this class", "classroom": classroom
-                })
+                raise ValueError("Roll number already exists")
 
         except ValueError as e:
             return render(request, "institute/teacher_admin/students/addstudents.html", {
@@ -263,10 +244,7 @@ def addStudents(request):
 @login_required
 @teacher_required
 def viewStudents(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     students = Student.objects.filter(
         class_room=teacher.classroom
     ).order_by("roll_no")
@@ -288,17 +266,14 @@ def manageMarks(request):
 @login_required
 @teacher_required
 def addMarks(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
     classroom = teacher.classroom
     subjects = ClassSubject.objects.filter(classroom=classroom)
     students = Student.objects.filter(class_room=classroom)
 
     if request.method == "POST":
         student_id = request.POST.get('student')
-        exam_type = request.POST.get('exam') or "Final"
+        exam_type = request.POST.get('exam')
 
         student = Student.objects.filter(id=student_id, class_room=classroom).first()
 
@@ -337,7 +312,8 @@ def addMarks(request):
 
     return render(request, "institute/teacher_admin/marks/addMarks.html", {
         "subjects": subjects,
-        "students": students
+        "students": students,
+        "classroom": classroom
     })
 
 
@@ -345,22 +321,14 @@ def addMarks(request):
 @login_required
 @teacher_required
 def viewMarks(request):
-    teacher = getattr(request, "teacher", None)
+    teacher = request.teacher
     
-    if not teacher:
-        return redirect('dashboard')
-    
-    exam = request.GET.get("exam")
-    if not exam:
-        exam = "Final"
+    exam = request.GET.get("exam","Final")
 
     marks = Mark.objects.filter(
         student__class_room=teacher.classroom,
         exam=exam
     ).select_related("student", "subject")
-    
-    if not marks.exists():
-        marks = []
     
     school = teacher.school
 
@@ -377,10 +345,7 @@ def viewMarks(request):
 @login_required
 @teacher_required
 def viewResults(request):
-    teacher = getattr(request, "teacher", None)
-    
-    if not teacher:
-        return redirect('dashboard')
+    teacher = request.teacher
 
     student_id = request.GET.get('student_id')
     selected_exam = request.GET.get('exam', 'Final')
@@ -394,9 +359,6 @@ def viewResults(request):
         return redirect('viewmarks')
 
     marks = Mark.objects.filter(student=student, exam=selected_exam).select_related('subject')
-    
-    if not marks:
-        return redirect('viewmarks')
 
     total_obtained = sum(m.total_marks() for m in marks)
     total_subjects = marks.count()
