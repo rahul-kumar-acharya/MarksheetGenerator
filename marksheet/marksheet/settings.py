@@ -12,7 +12,18 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", "").split(",") if host]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "edumarks.acharyaworks.in",
+    "www.edumarks.acharyaworks.in",
+    "edumarks.onrender.com"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://edumarks.acharyaworks.in",
+    "https://www.edumarks.acharyaworks.in"
+]
 
 
 # Application definition
