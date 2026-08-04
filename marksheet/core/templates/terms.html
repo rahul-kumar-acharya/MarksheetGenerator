@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service — EduMarks Academic Platform{% endblock %}
+
+{% block meta_description %}Review EduMarks Terms of Service detailing institutional governance, user responsibilities, and platform guidelines.{% endblock %}
+
+{% block meta_keywords %}terms of service, edumarks terms, academic record terms, institutional agreement{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-[#fafafa] pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+        <!-- HEADER -->
+        <div class="mb-12 text-center sm:text-left">
+            <span class="px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-black uppercase tracking-widest">Institutional Agreement</span>
+            <h1 class="mt-4 text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                Terms of <span class="text-indigo-600">Service</span>
+            </h1>
+            <p class="mt-2 text-slate-500 font-medium text-sm sm:text-base">Effective Date: August 4, 2026 • Platform Operating Framework</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-[3rem] p-8 sm:p-14 shadow-sm space-y-10 text-slate-700 font-medium leading-relaxed">
+            
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">1. Acceptance of Terms</h2>
+                <p>
+                    By registering an institution, creating educator accounts, or accessing student marksheets on EduMarks, you agree to comply with and be bound by these Terms of Service. If you are registering on behalf of a school, you represent that you have legal authority to bind that institution.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">2. Institutional Registration & Verification</h2>
+                <p>
+                    Schools registering on EduMarks must provide accurate affiliation numbers, board credentials, official emails, and valid registration certificates. EduMarks reserves the right to review, suspend, or revoke unverified or fraudulent school profiles.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">3. User Roles & Account Responsibilities</h2>
+                <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                    <li><strong>School Principals:</strong> Responsible for managing academic years, classroom allocations, and verifying uploaded teacher rosters.</li>
+                    <li><strong>Class Teachers:</strong> Responsible for entering accurate subject criteria, theory/practical marks, and student personal records.</li>
+                    <li><strong>Account Security:</strong> Administrators and teachers must maintain password confidentiality and report unauthorized access immediately.</li>
+                </ul>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">4. Authenticity of Marks & Signatures</h2>
+                <p>
+                    Institutions are solely responsible for the accuracy and authenticity of student grades, theory/practical mark distributions, and uploaded institutional logos or principal signatures. EduMarks operates as an automated processing system.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">5. Acceptable Use & System Integrity</h2>
+                <p>Users agree not to:</p>
+                <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                    <li>Falsify student academic transcripts or submit fraudulent marks.</li>
+                    <li>Attempt unauthorized access to administrator dashboards or database instances.</li>
+                    <li>Use automated scripts to overload or disrupt system availability.</li>
+                </ul>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">6. Platform Availability & Support</h2>
+                <p>
+                    While EduMarks strives for continuous 99.9% platform availability, service may undergo routine maintenance or updates. Assistance is accessible via our <a href="{% url 'help_center' %}" class="text-indigo-600 font-bold hover:underline">Help Center</a>.
+                </p>
+            </section>
+
+            <section class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs font-bold text-slate-400">Need legal or governance assistance?</p>
+                <a href="{% url 'privacy_policy' %}" class="px-6 py-3 bg-slate-900 text-white font-bold rounded-2xl text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all">Read Privacy Policy</a>
+            </section>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

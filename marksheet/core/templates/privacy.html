@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — EduMarks Academic System{% endblock %}
+
+{% block meta_description %}Read EduMarks' Privacy Policy to learn how we collect, protect, and manage student records and institutional data.{% endblock %}
+
+{% block meta_keywords %}privacy policy, student data privacy, academic record security, edumarks data protection{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-[#fafafa] pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+        <!-- HEADER -->
+        <div class="mb-12 text-center sm:text-left">
+            <span class="px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-black uppercase tracking-widest">Legal & Governance</span>
+            <h1 class="mt-4 text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                Privacy <span class="text-indigo-600">Policy</span>
+            </h1>
+            <p class="mt-2 text-slate-500 font-medium text-sm sm:text-base">Last updated: August 4, 2026 • EduMarks Data Protection System</p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-[3rem] p-8 sm:p-14 shadow-sm space-y-10 text-slate-700 font-medium leading-relaxed">
+            
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">1. Overview & Data Protection Principles</h2>
+                <p>
+                    EduMarks ("we", "our", or "the Platform") is committed to protecting the privacy of educational institutions, administrators, teachers, parents, and students. This Privacy Policy details how we collect, store, process, and safeguard personal and academic data.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">2. Information We Collect</h2>
+                <p>To provide secure academic record management and verified transcript generation, we collect:</p>
+                <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                    <li><strong>Institutional Data:</strong> School Name, Board Affiliation, Affiliation Number, Official Email, Phone Number, State Region, Pincode, and Principal Signature/Seal.</li>
+                    <li><strong>Educator & Staff Data:</strong> Principal/Teacher Administrative Usernames, Passwords (hashed), and assigned Classrooms.</li>
+                    <li><strong>Student Academic Data:</strong> Student Full Name, Roll Number, Date of Birth, Class/Section, Subjects, Theory & Practical Exam Marks.</li>
+                </ul>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">3. How We Use Your Information</h2>
+                <p>We process collected information strictly for legitimate educational operations:</p>
+                <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                    <li>Generating verified student marksheets and digital academic transcripts.</li>
+                    <li>Enabling authenticated access for school principals and teachers to manage grade rosters.</li>
+                    <li>Verifying official school registrations through administrative state controls.</li>
+                    <li>Ensuring automated error validation and performance metrics calculation.</li>
+                </ul>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">4. Security & Encryption Standard</h2>
+                <p>
+                    We implement industry-standard security protocols to protect academic data against unauthorized access, alteration, or disclosure:
+                </p>
+                <ul class="list-disc pl-6 space-y-2 text-sm text-slate-600">
+                    <li><strong>Data Encryption:</strong> All sensitive credentials and database transactions run over SSL/TLS encrypted channels.</li>
+                    <li><strong>Media Protection:</strong> School documents and seals are managed via secure Cloudinary storage with restricted raw media controls.</li>
+                    <li><strong>Password Hashing:</strong> User account passwords are stored using salted PBKDF2/SHA256 password hash algorithms.</li>
+                </ul>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">5. Data Sharing & Third Parties</h2>
+                <p>
+                    EduMarks does <strong>never sell, rent, or trade</strong> student or institutional data to commercial third parties or advertisers. Student marksheets are accessible only through exact lookup inputs (State, School, Grade, Section, Roll Number, and Birth Date).
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">6. Data Retention & School Control</h2>
+                <p>
+                    Institutions retain full ownership of their academic records. Verified school administrators can update student details, modify class lists, or request complete account termination by contacting EduMarks governance.
+                </p>
+            </section>
+
+            <section class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs font-bold text-slate-400">Questions about our Privacy Policy?</p>
+                <a href="{% url 'help_center' %}" class="px-6 py-3 bg-slate-900 text-white font-bold rounded-2xl text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all">Visit Help Center</a>
+            </section>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

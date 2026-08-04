@@ -230,12 +230,41 @@ def logoutView(request):
 
 # ---------------- ABOUT ----------------
 def aboutUs(request):
-    return render(request, 'about.html')
+    total_schools = School.objects.filter(is_verified=True).count()
+    total_students = Student.objects.count()
+    total_states = State.objects.count()
+    total_marks = Mark.objects.count()
+    total_teachers = Teacher.objects.count()
+    partner_schools = School.objects.filter(is_verified=True).select_related('state')[:6]
+
+    return render(request, 'about.html', {
+        "total_schools": total_schools,
+        "total_students": total_students,
+        "total_states": total_states,
+        "total_marks": total_marks,
+        "total_teachers": total_teachers,
+        "partner_schools": partner_schools,
+    })
 
 
 # ---------------- DOCUMENTATION ----------------
 def documentation(request):
     return render(request, 'institute/documentation.html')
+
+
+# ---------------- HELP CENTER & FAQS ----------------
+def helpCenter(request):
+    return render(request, 'help.html')
+
+
+# ---------------- PRIVACY POLICY ----------------
+def privacyPolicy(request):
+    return render(request, 'privacy.html')
+
+
+# ---------------- TERMS OF SERVICE ----------------
+def termsOfService(request):
+    return render(request, 'terms.html')
 
 
 # ---------------- APPROVAL ----------------

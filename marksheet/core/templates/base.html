@@ -93,7 +93,7 @@
                                 <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Portal Access</span>
                                 <span class="text-sm font-bold text-slate-900">{{ user.username }}</span>
                             </div>
-                            <a href="{% if user.is_superuser %}{% url 'admindashboard' %}{% elif user.school %}{% url 'principaldashboard' %}{% else %}{% url 'teacherdashboard' %}{% endif %}" class="hidden md:flex relative flex items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
+                            <a href="{% if user.is_superuser %}{% url 'admindashboard' %}{% elif user.school %}{% url 'principaldashboard' %}{% else %}{% url 'teacherdashboard' %}{% endif %}" class="hidden md:flex relative items-center gap-2 bg-slate-900 text-white pl-2 pr-5 py-2 rounded-2xl hover:bg-indigo-600 transition-all duration-300 group shadow-lg shadow-slate-200">
                                 <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs uppercase">
                                     {{ user.username|slice:":1" }}
                                 </div>
@@ -115,7 +115,7 @@
                 </div>
             </nav>
 
-            <div id="mobile-drawer" class="hidden md:hidden absolute top-24 inset-x-4 bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-100 p-8 flex flex-col gap-3">
+            <div id="mobile-drawer" class="hidden md:hidden absolute top-24 inset-x-4 bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-slate-100 p-8 flex-col gap-3">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 px-4">Navigation</p>
                 <a href="{% url 'home' %}" class="flex items-center gap-4 p-5 rounded-[1.5rem] bg-slate-50 text-slate-900 font-black">Home</a>
                 <a href="{% url 'aboutus' %}" class="flex items-center gap-4 p-5 rounded-[1.5rem] bg-slate-50 text-slate-900 font-black">About Us</a>
@@ -180,10 +180,11 @@
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-slate-900 font-black text-[10px] uppercase tracking-widest mb-4">Support</h3>
-                    <ul class="space-y-2 text-sm text-slate-500">
-                        <li><a href="#" class="hover:text-indigo-600 transition-colors">Help Center</a></li>
-                        <li><a href="#" class="hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
+                    <h3 class="text-slate-900 font-black text-[10px] uppercase tracking-widest mb-4">Support & Legal</h3>
+                    <ul class="space-y-2 text-sm text-slate-500 font-medium">
+                        <li><a href="{% url 'help_center' %}" class="hover:text-indigo-600 transition-colors">Help Center & FAQs</a></li>
+                        <li><a href="{% url 'privacy_policy' %}" class="hover:text-indigo-600 transition-colors">Privacy Policy</a></li>
+                        <li><a href="{% url 'terms_of_service' %}" class="hover:text-indigo-600 transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>

@@ -18,6 +18,9 @@ urlpatterns = [
     
     path('about-us/', aboutUs, name='aboutus'),
     path('documentation/', documentation, name='documentation'),
+    path('help/', helpCenter, name='help_center'),
+    path('privacy/', privacyPolicy, name='privacy_policy'),
+    path('terms/', termsOfService, name='terms_of_service'),
     
     path('admin-approval/', approval, name='adminapproval'),
     
