@@ -21,6 +21,8 @@ urlpatterns = [
     path('help/', helpCenter, name='help_center'),
     path('privacy/', privacyPolicy, name='privacy_policy'),
     path('terms/', termsOfService, name='terms_of_service'),
+    path('robots.txt', robotsTxt),
+    path('sitemap.xml', sitemapXml),
     
     path('admin-approval/', approval, name='adminapproval'),
     

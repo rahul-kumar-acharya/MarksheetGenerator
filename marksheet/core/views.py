@@ -267,6 +267,53 @@ def termsOfService(request):
     return render(request, 'terms.html')
 
 
+# ---------------- ROBOTS.TXT & SITEMAP.XML ----------------
+from django.http import HttpResponse
+
+def robotsTxt(request):
+    content = """User-agent: *
+Allow: /
+Allow: /state/
+Allow: /result/
+Allow: /about-us/
+Allow: /documentation/
+Allow: /help/
+Allow: /privacy/
+Allow: /terms/
+
+Disallow: /superadmin/
+Disallow: /principal-dashboard/
+Disallow: /teacher-dashboard/
+Disallow: /admin/
+
+Sitemap: https://edumarks.acharyaworks.in/sitemap.xml
+"""
+    return HttpResponse(content, content_type="text/plain")
+
+
+def sitemapXml(request):
+    domain = "https://edumarks.acharyaworks.in"
+    urls = [
+        {'loc': f'{domain}/', 'priority': '1.0', 'changefreq': 'daily'},
+        {'loc': f'{domain}/state/?type=student', 'priority': '0.9', 'changefreq': 'daily'},
+        {'loc': f'{domain}/state/?type=institute', 'priority': '0.8', 'changefreq': 'monthly'},
+        {'loc': f'{domain}/state/?type=register', 'priority': '0.8', 'changefreq': 'monthly'},
+        {'loc': f'{domain}/help/', 'priority': '0.8', 'changefreq': 'weekly'},
+        {'loc': f'{domain}/about-us/', 'priority': '0.7', 'changefreq': 'monthly'},
+        {'loc': f'{domain}/documentation/', 'priority': '0.7', 'changefreq': 'monthly'},
+        {'loc': f'{domain}/privacy/', 'priority': '0.5', 'changefreq': 'yearly'},
+        {'loc': f'{domain}/terms/', 'priority': '0.5', 'changefreq': 'yearly'},
+    ]
+    
+    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    for u in urls:
+        xml_content += f'  <url>\n    <loc>{u["loc"]}</loc>\n    <changefreq>{u["changefreq"]}</changefreq>\n    <priority>{u["priority"]}</priority>\n  </url>\n'
+    xml_content += '</urlset>'
+    
+    return HttpResponse(xml_content, content_type="application/xml")
+
+
 # ---------------- APPROVAL ----------------
 def approval(request):
     return render(request, "institute/adminapproval.html")

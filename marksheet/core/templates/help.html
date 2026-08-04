@@ -1,10 +1,53 @@
 {% extends "base.html" %}
 
-{% block title %}Help Center & FAQs — EduMarks Support{% endblock %}
+{% block title %}FAQ & Help Center — EduMarks Academic Portal{% endblock %}
 
-{% block meta_description %}Get instant answers to common questions about EduMarks. Explore guides for students, teachers, and school administrators.{% endblock %}
+{% block meta_description %}Can students check their own marksheet? Yes. Find instant answers for students, parents, principals, and educators.{% endblock %}
 
 {% block meta_keywords %}edumarks help center, school result faqs, academic transcript support, student marksheet help{% endblock %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I search and print my online marksheet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Go to the Find Result page, select your state and school name, then enter your Grade, Section, Roll Number, and Date of Birth. Once submitted, click Download / Print PDF to print or save your official transcript."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does it say Result not uploaded yet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This message appears if your class teacher has not uploaded the marks for the selected exam cycle (Half Yearly or Final), or if the school administration has not yet verified the grade records."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I register a new school on EduMarks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "School principals can register their institution by clicking Register School, filling in school details, board affiliation, official email, phone, and principal signature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are online marksheets digitally verified?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Every generated transcript includes official institutional credentials, board affiliation details, class teacher signatures, and principal seals hosted securely on encrypted cloud storage."
+      }
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[#fafafa] pt-32 pb-24 px-4 sm:px-6 lg:px-8">

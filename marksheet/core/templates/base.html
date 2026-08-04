@@ -5,20 +5,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>{% block title %}EduMarks — Academic Record Management System{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}EduMarks is a modern platform for schools to manage students, track academic performance, and provide instant result verification for learners.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}school management, student results, online marksheet, education portal, academic records{% endblock %}">
-    <meta name="author" content="EduMarks Team">
-    <meta name="robots" content="index, follow">
+    <title>{% block title %}EduMarks - Best Academic Record Management System | Online Student Marksheet & Result Verification{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Everything you need to manage modern school academic records, from instant student result verification to automated grade transcripts and principal administration.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}edumarks, best school management system, online student marksheet, result verification portal, academic records, school software india{% endblock %}">
+    <meta name="author" content="EduMarks Engineering Team">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-    <meta property="og:image" content="https://placehold.co/1200x630/0f172a/ffffff?text=EDUMARKS%0AAcademic+Management+System&font=roboto">
+    <link rel="canonical" href="{% block canonical_url %}https://edumarks.acharyaworks.in{{ request.path }}{% endblock %}">
+
+    <!-- Open Graph & Social Card Metadata -->
+    <meta property="og:site_name" content="EduMarks">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{% block og_title %}EduMarks - Best Academic Record Management System | Online Student Marksheets{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Everything you need to manage modern school academic records, from instant student result verification to printable transcripts.{% endblock %}">
+    <meta property="og:url" content="https://edumarks.acharyaworks.in{{ request.path }}">
+    <meta property="og:image" content="{% block og_image %}https://edumarks.acharyaworks.in{% static 'core/images/og_banner.png' %}{% endblock %}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/0f172a/ffffff?text=EDUMARKS%0AAcademic+Management+System&font=roboto">
+    <meta name="twitter:title" content="{% block twitter_title %}EduMarks — Academic Record System{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Instant student result verification and school administration portal.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://edumarks.acharyaworks.in{% static 'core/images/og_banner.png' %}{% endblock %}">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.35em' fill='white' style='font-family:sans-serif;font-weight:800;font-size:14px'%3EEM%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="{% static 'core/images/favicon.svg' %}">
+    <link rel="icon" type="image/png" href="{% static 'core/images/favicon.png' %}">
+    <link rel="shortcut icon" href="{% static 'core/images/favicon.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'core/images/favicon.png' %}">
+
+    <!-- Schema.org JSON-LD Structured Data for Google Sitelinks & Searchbox -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://edumarks.acharyaworks.in/#website",
+          "url": "https://edumarks.acharyaworks.in/",
+          "name": "EduMarks",
+          "alternateName": ["EduMarks Portal", "EduMarks Academic System"],
+          "description": "Everything you need to run modern school academic records, from online student marksheets to automated grade transcripts.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "EduMarks",
+            "url": "https://edumarks.acharyaworks.in/",
+            "logo": "https://edumarks.acharyaworks.in{% static 'core/images/favicon.png' %}"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://edumarks.acharyaworks.in/state/?type=student&q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://edumarks.acharyaworks.in/#sitelinks",
+          "name": "EduMarks Quick Navigation Sitelinks",
+          "itemListElement": [
+            {
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "Find Student Result",
+              "description": "Lookup and print official academic marksheets by roll number and birth date.",
+              "url": "https://edumarks.acharyaworks.in/state/?type=student"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "Institute Login",
+              "description": "Secure portal access for school administrators and teachers.",
+              "url": "https://edumarks.acharyaworks.in/state/?type=institute"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "Register School",
+              "description": "Register your educational institution on the EduMarks network.",
+              "url": "https://edumarks.acharyaworks.in/state/?type=register"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Help Center & FAQs",
+              "description": "Instant answers for students, parents, principals, and educators.",
+              "url": "https://edumarks.acharyaworks.in/help/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 5,
+              "name": "About EduMarks",
+              "description": "Our mission, data integrity principles, and partner school network.",
+              "url": "https://edumarks.acharyaworks.in/about-us/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 6,
+              "name": "Platform Features",
+              "description": "Everything you need to manage your school efficiently.",
+              "url": "https://edumarks.acharyaworks.in/documentation/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <link rel="stylesheet" href="{% static 'core/css/output.css' %}">
     <style>
@@ -61,8 +152,6 @@
             </p>
         </div>
     </div>
-
-
 
     <header class="fixed top-0 inset-x-0 z-[60] transition-all duration-500" id="main-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
@@ -166,7 +255,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-1 space-y-4">
                     <a href="{% url 'home' %}" class="flex items-center gap-2">
-                        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white">EM</div>
+                        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-xs">EM</div>
                         <span class="text-xl font-bold text-slate-900">EduMarks</span>
                     </a>
                     <p class="text-slate-500 text-sm leading-relaxed">Defining the standard for secure and modern digital academic records.</p>

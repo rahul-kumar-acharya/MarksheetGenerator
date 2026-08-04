@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}Select Region — EduMarks Portal{% endblock %}
+{% block title %}
+    {% if type == 'student' %}
+        Find Student Result - Search Academic Transcripts | EduMarks
+    {% elif type == 'institute' %}
+        Institute Login - Secure School Portal Access | EduMarks
+    {% elif type == 'register' %}
+        Register Your School - Join EduMarks Educational Network
+    {% else %}
+        Select Your Region & State — EduMarks Portal
+    {% endif %}
+{% endblock %}
 
-{% block meta_description %}Choose your State or Union Territory to access the {{ type|default:"Academic" }} portal. Secure region-based access for students and educational institutes.{% endblock %}
+{% block meta_description %}
+    {% if type == 'student' %}
+        Select your region and school to search official student marksheets by roll number and date of birth.
+    {% elif type == 'institute' %}
+        Secure login and registration for EduMarks School Management Portal. Access principal and teacher dashboards.
+    {% elif type == 'register' %}
+        Register your school on the EduMarks network. Onboard your institution, manage teacher rosters, and verify transcripts.
+    {% else %}
+        Choose your State or Union Territory to access the academic portal. Secure region-based access.
+    {% endif %}
+{% endblock %}
 
-{% block meta_keywords %}select state, education portal region, {{ type }} login, school result by state, india educational regions{% endblock %}
+{% block meta_keywords %}select state, education portal region, {{ type }} portal, school result by state, edumarks portal{% endblock %}
 
 {% block content %}
 <div class="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-100 via-blue-50 to-cyan-100 py-32 px-4">
