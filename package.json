@@ -1,0 +1,14 @@
+{
+  "name": "student-marksheet-generator",
+  "version": "1.0.0",
+  "description": "EduMarks - Academic Record & Marksheet Management System",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./marksheet/static_src/css/input.css -o ./marksheet/core/static/core/css/output.css --minify",
+    "watch:css": "tailwindcss -i ./marksheet/static_src/css/input.css -o ./marksheet/core/static/core/css/output.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^3.4.19"
+  }
+}

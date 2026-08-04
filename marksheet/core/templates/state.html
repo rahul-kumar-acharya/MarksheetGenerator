@@ -31,6 +31,19 @@
                 </span>
             </div>
         </div>
+        <!-- Skeleton Loader Container (hidden after page init or on search filter transition) -->
+        <div id="stateSkeletonGrid" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
+            {% for i in "12345678" %}
+            <div class="skeleton-card flex items-center gap-4">
+                <div class="skeleton-avatar"></div>
+                <div class="flex-1">
+                    <div class="skeleton-text w-3/4"></div>
+                    <div class="skeleton-text w-1/2 h-3"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="stateGrid">
             {% for state in states %}
                 <a href="{% if type == 'institute' %}{% url 'login' %}{% elif type == 'register' %}{% url 'register' %}{% else %}{% url 'result' %}{% endif %}?state={{ state.id }}"
@@ -67,7 +80,8 @@
 <script>
     const searchInput = document.getElementById('stateSearch');
     if(searchInput) {
-        searchInput.addEventListener('keyup', function() {
+        let debounceTimer;
+        searchInput.addEventListener('input', function() {
             let filter = this.value.toLowerCase();
             document.querySelectorAll('.state-card').forEach(card => {
                 let name = card.querySelector('h3').textContent.toLowerCase();

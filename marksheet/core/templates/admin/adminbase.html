@@ -1,16 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduMarks | Admin Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'core/css/output.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="bg-[#fafafa] antialiased">
+    <!-- Unique Center Global Glassmorphism Loader Overlay -->
+    <div id="center-global-loader">
+        <div class="bg-white/95 backdrop-blur-2xl border border-white/40 p-8 rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center max-w-xs w-full text-center relative overflow-hidden group">
+            <!-- Glowing Aura Circles -->
+            <div class="absolute -top-12 -left-12 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"></div>
+
+            <!-- Orbital Spinning Emblem -->
+            <div class="relative w-20 h-20 flex items-center justify-center mb-5">
+                <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-600 border-r-purple-600 border-b-cyan-400 animate-spin"></div>
+                <div class="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+                    <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Branding & Animated Pulse Text -->
+            <h3 class="text-xl font-black text-slate-900 tracking-tighter mb-1">
+                Edu<span class="text-indigo-600">Marks</span>
+            </h3>
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5 justify-center">
+                <span>Loading Admin Portal</span>
+                <span class="inline-flex gap-1 ml-0.5">
+                    <span class="loader-dot"></span>
+                    <span class="loader-dot"></span>
+                    <span class="loader-dot"></span>
+                </span>
+            </p>
+        </div>
+    </div>
+
+
 
     <header class="fixed top-0 inset-x-0 z-50 p-4 md:p-6">
         <nav class="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl border border-slate-200 rounded-[2rem] px-6 py-4 flex items-center justify-between shadow-xl shadow-slate-200/50">
@@ -77,9 +110,37 @@
                     <span class="px-3 py-1 bg-slate-50 text-slate-400 text-[10px] font-black rounded-full border border-slate-100">STABLE V1.4</span>
                     <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-full border border-emerald-100">SERVER ONLINE</span>
                 </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        const loader = document.getElementById('center-global-loader');
 
+        function startPageLoader() {
+            if (!loader) return;
+            loader.classList.add('active');
+        }
+        function stopPageLoader() {
+            if (!loader) return;
+            loader.classList.remove('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const anchor = e.target.closest('a');
+            if (anchor && anchor.href && !anchor.href.startsWith('#') && !anchor.href.startsWith('javascript:') && anchor.target !== '_blank') {
+                startPageLoader();
+            }
+        });
+
+        document.addEventListener('submit', (e) => {
+            startPageLoader();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+            if (submitBtn && !submitBtn.dataset.noSpinner) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+                submitBtn.innerHTML = `<span class="btn-spinner mr-2"></span> Saving...`;
+            }
+        });
+
+        window.addEventListener('pageshow', stopPageLoader);
+    </script>
 </body>
 </html>
