@@ -84,9 +84,13 @@ WSGI_APPLICATION = 'marksheet.wsgi.application'
 # Database — Neon PostgreSQL
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set. Please configure your Neon database connection.")
+
 DATABASES = {
     'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'),
+        DATABASE_URL,
         conn_max_age=600,
         ssl_require=True
     )
