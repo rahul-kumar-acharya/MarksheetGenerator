@@ -7,6 +7,8 @@ from core.principal_views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.generic import RedirectView
+
 urlpatterns = [
     path('superadmin/', admin.site.urls),
     path('', home, name='home'),
@@ -23,6 +25,7 @@ urlpatterns = [
     path('terms/', termsOfService, name='terms_of_service'),
     path('robots.txt', robotsTxt),
     path('sitemap.xml', sitemapXml),
+    path('favicon.ico', RedirectView.as_view(url='/static/core/images/favicon.png')),
     
     path('admin-approval/', approval, name='adminapproval'),
     

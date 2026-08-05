@@ -15,15 +15,23 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    ".onrender.com",
     "edumarks.acharyaworks.in",
     "www.edumarks.acharyaworks.in",
-    "edumarks.onrender.com"
+    "*"
 ]
+env_hosts = os.environ.get("ALLOWED_HOSTS")
+if env_hosts:
+    ALLOWED_HOSTS.extend([h.strip() for h in env_hosts.split(",") if h.strip()])
 
 CSRF_TRUSTED_ORIGINS = [
     "https://edumarks.acharyaworks.in",
-    "https://www.edumarks.acharyaworks.in"
+    "https://www.edumarks.acharyaworks.in",
+    "https://*.onrender.com"
 ]
+env_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS")
+if env_csrf:
+    CSRF_TRUSTED_ORIGINS.extend([origin.strip() for origin in env_csrf.split(",") if origin.strip()])
 
 
 # Application definition
@@ -73,12 +81,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'marksheet.wsgi.application'
 
 
-# Database
+# Database — Neon PostgreSQL
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # Password validation
@@ -115,12 +126,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'core' / 'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -128,30 +138,14 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
 
-if DEBUG:
-    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-    STORAGES = {
-        "default": {
-            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-        },
-    }
-else:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-    STORAGES = {
-        "default": {
-            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
-
-
-CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",") if origin]
-
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
