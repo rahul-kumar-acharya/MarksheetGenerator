@@ -11,6 +11,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Critical Production Fallback CSS for Global Center Loader */
+        #center-global-loader {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            z-index: 999999 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background-color: rgba(15, 23, 42, 0.5) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #center-global-loader.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        @keyframes dotBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
+            40% { transform: translateY(-6px); opacity: 1; }
+        }
+        .loader-dot {
+            width: 5px;
+            height: 5px;
+            background-color: #6366f1;
+            border-radius: 50%;
+            display: inline-block;
+            animation: dotBounce 1.2s infinite ease-in-out;
+        }
+        .loader-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .btn-spinner {
+            display: inline-block;
+            width: 1.1rem;
+            height: 1.1rem;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+            align-self: center;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
     <!-- Unique Center Global Glassmorphism Loader Overlay -->
@@ -143,7 +193,10 @@
             }
         });
 
+        window.addEventListener('beforeunload', startPageLoader);
+        window.addEventListener('load', stopPageLoader);
         window.addEventListener('pageshow', stopPageLoader);
+        window.addEventListener('DOMContentLoaded', stopPageLoader);
     </script>
 </body>
 </html>
